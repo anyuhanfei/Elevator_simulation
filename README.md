@@ -6,4 +6,6 @@
 
 ## 效果展示
 
-占位符
+![image1](https://github.com/anyuhanfei/Elevator_simulation/blob/master/show_images/image1.png?raw=true)
+
+![image1](https://github.com/anyuhanfei/Elevator_simulation/blob/master/show_images/image2.png?raw=true)

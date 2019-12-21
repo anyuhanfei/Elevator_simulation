@@ -13,18 +13,22 @@ from element import passenger
 mansion_obj = mansion.mansion(__init__.MAXIMUM_LAYER, __init__.MINIMUM_LAYER)
 
 # 电梯初始化
-elevator_obj = elevator.elevator()
+elevator_obj = elevator.elevator(__init__.MAXIMUM_LOAD)
 
 # 乘客初始化
 passenger_objs = dict()
 
 # 开始运营
 while(True):
-    if input('是否下一步：(Y/N)') == 'N':
-        break
+    if __init__.RUN_MODE:
+        if input('请输入下一步指令：(N结束)') == 'N':
+            break
+    else:
+        time.sleep(__init__.UNIT_TIME)
+
     elevator_obj.move_self(__init__.MINIMUM_LAYER, __init__.MAXIMUM_LAYER)
     # 随机生成乘客
-    if random.randint(0, 2) == 1:
+    if random.randint(1, __init__.PGP) == 1:
         passenger_obj = passenger.passenger(__init__.MAXIMUM_LAYER, __init__.MINIMUM_LAYER)
         passenger_objs.update({str(time.time()): passenger_obj})
         # 按按钮
@@ -44,7 +48,8 @@ while(True):
                             elevator_obj.add_move_task(i)  # 添加移动任务
                             mansion_obj.over_task(i.current_layer, i.orientation)  # 大楼电梯按钮关闭
                         else:
-                            i.elevator_overload()  # 超载
+                            layer, orientation = i.elevator_overload()  # 超载,重新按电梯
+                            mansion_obj.add_task(layer, orientation)
             else:  # 已上电梯
                 if i.whether_to_over(elevator_obj) is True:  # 到达目的地
                     # 乘客下电梯
@@ -73,7 +78,8 @@ while(True):
         file_content += '\n'
     # 电梯参数
     file_content += '\n'
-    file_content += '电梯任务: %s\n电梯方向：%s\n所在层：%s\n' % (elevator_obj.move_task, elevator_obj.move_orientation, elevator_obj.current_layer)
+    file_content += '电梯任务: %s\n电梯方向：%s\n' % (elevator_obj.move_task, elevator_obj.move_orientation)
+    file_content += '所在层：%s\n当前载重：%s\n' % (elevator_obj.current_layer, elevator_obj.passenger_total_weight)
     file_content += '电梯乘客: '
     for key, value in passenger_objs.items():
         if value.status is True:
@@ -87,5 +93,3 @@ while(True):
     # 保存到文件
     with open('show.log', 'w+', encoding="utf-8") as f:
         f.write(file_content)
-
-    # time.sleep(__init__.UNIT_TIME)

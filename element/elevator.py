@@ -4,7 +4,7 @@
 
 
 class elevator():
-    maximum_load = 1800  # kg  最大载重
+    maximum_load = 460  # kg  最大载重
     current_layer = 1  # 当前所在层数，初始化为1(电梯无0层)
     passenger_number = 0  # 乘客数量，初始化为0
     passenger_total_weight = 0  # 乘客总重量，初始化为0
@@ -31,9 +31,6 @@ class elevator():
         if self.update_orientation() is False:
             return
         # 到达顶层没有停留，改变方向后向下了一格（找不到bug，无奈之举）
-        print(maximum_layer)
-        print(self.current_layer)
-        print(self.move_orientation)
         if maximum_layer == self.current_layer and self.move_orientation == 'up':
             return
         if minimum_layer == self.current_layer and self.move_orientation == 'down':

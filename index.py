@@ -20,7 +20,7 @@ passenger_objs = dict()
 
 # 开始运营
 while(True):
-    if __init__.RUN_MODE:
+    if __init__.RUN_MODE == 'manual':
         if input('请输入下一步指令：(N结束)') == 'N':
             break
     else:

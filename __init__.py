@@ -3,10 +3,10 @@
 '''
 
 '''运行方式'''
-RUN_MODE = 'manual'  # manual or auto
+RUN_MODE = 'auto'  # manual or auto
 
 '''运行间隔时间(自动模式生效)'''
-UNIT_TIME = 3
+UNIT_TIME = 2
 
 '''楼层'''
 MAXIMUM_LAYER = 7
